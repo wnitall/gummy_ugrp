@@ -41,17 +41,17 @@ class _LoginViewState extends State<LoginView> {
                 children: [
                   const SizedBox(height: 50),
                   Image.asset(
-                    'assets/images/tiktok.png',
+                    'assets/images/profile.png',
                     width: 200,
                   ),
                   Text(
-                    'Wellcome',
+                    'GUMMY',
                     style: GoogleFonts.rubikMonoOne(
                       fontSize: 32,
                     ),
                   ),
                   Text(
-                    'Glad to see you',
+                    'Food entertainment platform',
                     style: GoogleFonts.saira(
                       fontSize: 20,
                     ),

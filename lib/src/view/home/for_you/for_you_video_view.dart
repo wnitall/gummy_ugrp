@@ -92,6 +92,7 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                                   const SizedBox(height: 6),
 
                                   //*artist - song name
+                                  /*
                                   Row(
                                     children: [
                                       Image.asset(
@@ -107,6 +108,7 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                                       ),
                                     ],
                                   )
+                                  */
                                 ],
                               ),
                             ),

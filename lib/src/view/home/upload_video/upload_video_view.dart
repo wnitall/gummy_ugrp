@@ -107,7 +107,7 @@ class _UploadVideoViewState extends State<UploadVideoView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/upload_default.png',
+              'assets/images/profile.png',
               height: 100,
               width: 100,
             ),

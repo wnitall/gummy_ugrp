@@ -306,10 +306,11 @@ class _ProfileViewState extends State<ProfileView> {
                                 profileController.userMap["userFacebook"]);
                           }
                         },
+                        /*
                         child: Image.asset(
                           "assets/icons/facebook.png",
                           width: 18,
-                        ),
+                        ),*/
                       ),
                       const SizedBox(width: 15),
                       GestureDetector(
@@ -323,10 +324,12 @@ class _ProfileViewState extends State<ProfileView> {
                                 profileController.userMap["userInstagram"]);
                           }
                         },
+                        /*
                         child: Image.asset(
                           "assets/icons/instagram.png",
                           width: 18,
-                        ),
+                        )
+                         */
                       ),
                       const SizedBox(width: 15),
                       GestureDetector(
