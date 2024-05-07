@@ -23,7 +23,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Tiktok clone app - zia',
+      title: 'Gummy',
       theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.black),
       getPages: AppRoutes.appRoute(),
       home: const LoginView(),
