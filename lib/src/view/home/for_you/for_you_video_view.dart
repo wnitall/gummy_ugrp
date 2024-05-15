@@ -11,6 +11,7 @@ import 'package:tiktok_app_clone_flutter/src/controller/for_you_video_controller
 import 'package:tiktok_app_clone_flutter/src/controller/profile_controller.dart';
 import 'package:tiktok_app_clone_flutter/src/view/home/comments/comments_bottom_sheet.dart';
 import 'package:tiktok_app_clone_flutter/src/view/home/comments/comments_view.dart';
+import 'package:tiktok_app_clone_flutter/src/view/home/map/map_view.dart';
 
 class ForYouVideoView extends StatefulWidget {
   const ForYouVideoView({super.key});
@@ -56,7 +57,7 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                 //*left right - panels
                 Column(
                   children: [
-                    const SizedBox(height: 110),
+                    const SizedBox(height: 5),
                     //*left right - panels
                     Expanded(
                       child: Row(
@@ -233,6 +234,25 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                                         color: Colors.white,
                                       ),
                                     ),
+                                  ],
+                                ),
+
+                                Column(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => MapView()),
+                                        );
+                                      },
+                                      icon: const Icon(
+                                        Icons.map,
+                                        size: 32,
+                                        color: Colors.white,
+                                      ),
+                                    )
                                   ],
                                 ),
 
