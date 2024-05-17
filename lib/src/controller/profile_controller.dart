@@ -21,7 +21,7 @@ class ProfileController extends GetxController {
 
     final userInfo = documentSnapshot.data() as dynamic;
 
-    String userName = userInfo['name'];
+    String? userName = userInfo?['name'];
     String userEmail = userInfo['email'];
     String userImage = userInfo['image'];
     String userUID = userInfo['uid'];
