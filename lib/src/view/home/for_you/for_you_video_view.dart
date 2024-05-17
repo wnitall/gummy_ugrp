@@ -12,6 +12,7 @@ import 'package:tiktok_app_clone_flutter/src/controller/for_you_video_controller
 import 'package:tiktok_app_clone_flutter/src/controller/profile_controller.dart';
 import 'package:tiktok_app_clone_flutter/src/view/home/comments/comments_bottom_sheet.dart';
 import 'package:tiktok_app_clone_flutter/src/view/home/comments/comments_view.dart';
+import 'package:tiktok_app_clone_flutter/src/view/home/map/map_view.dart';
 
 class ForYouVideoView extends StatefulWidget {
   const ForYouVideoView({super.key});
@@ -57,8 +58,54 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
 
                 //*left right - panels
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const SizedBox(height: 110),
+                    Container(
+                      height: 110, // 원하는 높이 지정
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            " > 강남구",
+                            style: GoogleFonts.roboto(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Container(
+                            width: 70,
+                            //padding: EdgeInsets.only(top: 15),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  onPressed: () { Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => MapView()),
+                                        );
+                                  },
+                                  icon: const Icon(
+                                    Icons.map_outlined,
+                                    size: 37,
+                                    color: Color.fromARGB(255, 238, 238, 238),
+                                  ),
+                                ),
+                                Text(
+                                  "길찾기",
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     //*left right - panels
                     Expanded(
                       child: Row(
@@ -76,9 +123,9 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text(
-                                    "@${eachVideoInfo.userName}",
-                                    style: GoogleFonts.saira(
-                                      fontSize: 20,
+                                    "${eachVideoInfo.userName}",
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 30,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -87,11 +134,11 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                                   //*description - tags
                                   Text(
                                     eachVideoInfo.descriptionTags.toString(),
-                                    style: GoogleFonts.saira(
-                                      fontSize: 16,
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 20,
                                     ),
                                   ),
-                                  const SizedBox(height: 6),
+                                  const SizedBox(height: 46),
 
                                   //*artist - song name
                                   /*
@@ -117,8 +164,9 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                           ),
                           //*right panel
                           Container(
-                            width: 100,
-                            margin: EdgeInsets.only(top: context.height * .35),
+                            width: 80,
+                            padding: EdgeInsets.only(top: context.height * .30),
+                            margin: EdgeInsets.only(bottom: 60),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -128,11 +176,12 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                                     children: [
                                       Positioned(
                                         child: Container(
-                                          width: 52,
-                                          height: 52,
+                                          width: 42,
+                                          height: 42,
                                           padding: const EdgeInsets.all(2),
                                           decoration: BoxDecoration(
-                                            color: Colors.white,
+                                            color:
+                                                Color.fromARGB(66, 63, 61, 61),
                                             borderRadius:
                                                 BorderRadius.circular(25),
                                           ),
@@ -156,21 +205,24 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                                 Column(
                                   children: [
                                     IconButton(
-                                      onPressed: () {
-                                        forYouVideoController.likeOrUnlikeVideo(
-                                            eachVideoInfo.videoID.toString());
-                                      },
-                                      icon: Icon(
-                                        Icons.favorite_rounded,
-                                        size: 32,
-                                        color: eachVideoInfo.likesList!
-                                                .contains(FirebaseAuth
+                                        onPressed: () {
+                                          forYouVideoController
+                                              .likeOrUnlikeVideo(eachVideoInfo
+                                                  .videoID
+                                                  .toString());
+                                        },
+                                        icon: eachVideoInfo.likesList!.contains(
+                                                FirebaseAuth
                                                     .instance.currentUser!.uid)
-                                            ? const Color.fromARGB(
-                                                255, 200, 70, 61)
-                                            : Colors.white,
-                                      ),
-                                    ),
+                                            ? Icon(Icons.favorite_rounded,
+                                                size: 37,
+                                                color: const Color.fromARGB(
+                                                    255, 200, 70, 61))
+                                            : Icon(
+                                                Icons.favorite_border,
+                                                size: 37,
+                                                color: Colors.white,
+                                              )),
 
                                     //*total likes
                                     Text(
@@ -202,8 +254,8 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                                         showCommentBottomSheet(context);
                                       },
                                       icon: const Icon(
-                                        Icons.add_comment,
-                                        size: 32,
+                                        Icons.chat_bubble_outline,
+                                        size: 37,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -219,64 +271,33 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                                   ],
                                 ),
 
-                                //*share button - total shares
+                                //*menu button
                                 Column(
                                   children: [
                                     IconButton(
                                       onPressed: () {},
                                       icon: const Icon(
-                                        Icons.share,
-                                        size: 32,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text(
-                                      eachVideoInfo.totalShares.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white,
+                                        Icons.restaurant_menu,
+                                        size: 37,
+                                        color:
+                                            Color.fromARGB(255, 238, 238, 238),
                                       ),
                                     ),
                                   ],
                                 ),
 
-                                //*profile circular animation
-                                CircularImageAnimation(
-                                  wigetAnimation: SizedBox(
-                                    width: 60,
-                                    height: 60,
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          height: 52,
-                                          width: 52,
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors: [
-                                                Colors.deepPurple,
-                                                Colors.white,
-                                                Colors.yellow.shade200,
-                                              ],
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            child: Image(
-                                              image: NetworkImage(
-                                                eachVideoInfo.userProfileImage
-                                                    .toString(),
-                                              ),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                Column(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                        Icons.send_rounded,
+                                        size: 37,
+                                        color:
+                                            Color.fromARGB(255, 238, 238, 238),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ],
                             ),

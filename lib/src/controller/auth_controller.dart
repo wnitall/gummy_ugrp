@@ -110,9 +110,9 @@ class AuthController extends GetxController {
           .signInWithEmailAndPassword(email: email, password: password);
       showProgressBar = false;
       Get.snackbar(
-        'Loggen-in Successfully',
+        'Log-in Successfully',
         'you are logged-in successfully',
-        backgroundColor: Colors.deepPurple.shade200.withOpacity(.5),
+        backgroundColor: Colors.white.withOpacity(.5), //white로 변경한 부분
       );
       Get.to(const HomeView());
     } catch (e) {

@@ -140,7 +140,7 @@ class _LoginViewState extends State<LoginView> {
                                     Get.toNamed(RouteName.regist.toString());
                                   },
                                   child: const Text(
-                                    "Singup here",
+                                    "Signup here",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
