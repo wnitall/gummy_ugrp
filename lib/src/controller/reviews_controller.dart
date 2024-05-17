@@ -46,14 +46,13 @@ class ReviewsController extends GetxController {
           .collection('videos')
           .doc(currentVideoID)
           .get();
-
+      int totalReviews =
+          (currentVideoSnapshotDocument.data() as dynamic)['totalReviews'] ?? 0;
       await FirebaseFirestore.instance
           .collection('videos')
           .doc(currentVideoID)
           .update({
-        'totalReviews':
-            (currentVideoSnapshotDocument.data() as dynamic)['totalReviews'] +
-                1,
+        'totalReviews': totalReviews + 1,
       });
     } catch (e) {
       Get.snackbar('Error Posting New Review', 'Error Message: $e');

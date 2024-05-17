@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tiktok_app_clone_flutter/core/widgets/circular_image_animation.dart';
 import 'package:tiktok_app_clone_flutter/core/widgets/custom_video_player.dart';
 import 'package:tiktok_app_clone_flutter/src/controller/comments_controller.dart';
+import 'package:tiktok_app_clone_flutter/src/controller/reviews_controller.dart';
 import 'package:tiktok_app_clone_flutter/src/controller/for_you_video_controller.dart';
 import 'package:tiktok_app_clone_flutter/src/controller/profile_controller.dart';
 import 'package:tiktok_app_clone_flutter/src/view/home/comments/comments_bottom_sheet.dart';
@@ -23,6 +24,7 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
   ForYouVideoController forYouVideoController =
       Get.put(ForYouVideoController());
   CommentsController commentsController = Get.put(CommentsController());
+  ReviewsController reviewsController = Get.put(ReviewsController());
   ProfileController profileController = Get.put(ProfileController());
 
   @override
@@ -188,6 +190,8 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                                     IconButton(
                                       onPressed: () {
                                         commentsController.updateCurrentVideoID(
+                                            eachVideoInfo.videoID.toString());
+                                        reviewsController.updateCurrentVideoID(
                                             eachVideoInfo.videoID.toString());
                                         // Get.to(
                                         //   CommentsView(
