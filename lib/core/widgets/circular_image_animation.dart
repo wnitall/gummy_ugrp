@@ -30,8 +30,8 @@ class _CircularImageAnimationState extends State<CircularImageAnimation>
 
   @override
   void dispose() {
-    super.dispose();
     animationController.dispose();
+    super.dispose();
   }
 
   @override
