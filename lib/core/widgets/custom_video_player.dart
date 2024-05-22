@@ -28,6 +28,13 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
             videoPlayerController!.setLooping(false);
             videoPlayerController!.setVolume(2);
           });
+    videoPlayerController!.addListener(() {
+      if (videoPlayerController!.value.position ==
+          videoPlayerController!.value.duration) {
+        videoPlayerController!.seekTo(Duration.zero);
+        videoPlayerController!.play();
+      }
+    });
   }
 
   @override
