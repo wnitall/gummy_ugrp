@@ -10,9 +10,11 @@ import 'package:tiktok_app_clone_flutter/src/controller/comments_controller.dart
 import 'package:tiktok_app_clone_flutter/src/controller/reviews_controller.dart';
 import 'package:tiktok_app_clone_flutter/src/controller/for_you_video_controller.dart';
 import 'package:tiktok_app_clone_flutter/src/controller/profile_controller.dart';
+import 'package:tiktok_app_clone_flutter/src/controller/share_controller.dart';
 import 'package:tiktok_app_clone_flutter/src/view/home/comments/comments_bottom_sheet.dart';
 import 'package:tiktok_app_clone_flutter/src/view/home/comments/comments_view.dart';
 import 'package:tiktok_app_clone_flutter/src/view/home/map/map_view.dart';
+import 'package:tiktok_app_clone_flutter/src/view/home/menu/menu_view.dart'; // 메뉴 뷰 임포트 추가
 
 class ForYouVideoView extends StatefulWidget {
   const ForYouVideoView({super.key});
@@ -81,11 +83,12 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 IconButton(
-                                  onPressed: () { Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => MapView()),
-                                        );
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MapView()),
+                                    );
                                   },
                                   icon: const Icon(
                                     Icons.map_outlined,
@@ -275,7 +278,19 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                                 Column(
                                   children: [
                                     IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          enableDrag: true,
+                                          scrollControlDisabledMaxHeightRatio:
+                                              11.2 / 16,
+                                          builder: (_) {
+                                            return MenuView(
+                                                videoID: eachVideoInfo.videoID
+                                                    .toString());
+                                          },
+                                        );
+                                      },
                                       icon: const Icon(
                                         Icons.restaurant_menu,
                                         size: 37,
@@ -289,7 +304,10 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                                 Column(
                                   children: [
                                     IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        shareVideo_temp(
+                                            eachVideoInfo.videoUrl!);
+                                      },
                                       icon: const Icon(
                                         Icons.send_rounded,
                                         size: 37,

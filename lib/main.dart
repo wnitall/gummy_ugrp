@@ -8,10 +8,14 @@ import 'package:tiktok_app_clone_flutter/core/services/app_routes.dart';
 import 'package:tiktok_app_clone_flutter/src/controller/auth_controller.dart';
 import 'package:tiktok_app_clone_flutter/src/view/auth/login_view.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
 
 void main() async {
   await _initialize();
-
+  KakaoSdk.init(
+    nativeAppKey: '109954ae99f3fd6c1cfc4bb8aad2ca34',
+    javaScriptAppKey: '354d318c19ad4cc101e516b2f5d228f4',
+  );
   runApp(const MainApp());
 }
 
