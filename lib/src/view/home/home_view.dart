@@ -6,6 +6,7 @@ import 'package:tiktok_app_clone_flutter/src/view/home/profile/profile_view.dart
 import 'package:tiktok_app_clone_flutter/src/view/home/search/search_view.dart';
 import 'package:tiktok_app_clone_flutter/src/view/home/upload_video/widgets/upload_custom_icon.dart';
 import 'package:tiktok_app_clone_flutter/src/view/home/upload_video/upload_video_view.dart';
+import 'package:tiktok_app_clone_flutter/src/view/home/map/map_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -18,7 +19,7 @@ class _HomeViewState extends State<HomeView> {
   int screenIndex = 0;
   List screenList = [
     const ForYouVideoView(),
-    const SearchView(),
+    const MapView(),
     const UploadVideoView(),
     const FollowingVideoView(),
     ProfileView(visitUserID: currentUserID),
