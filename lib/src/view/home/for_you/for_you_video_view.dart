@@ -14,6 +14,9 @@ import 'package:tiktok_app_clone_flutter/src/view/home/comments/comments_bottom_
 import 'package:tiktok_app_clone_flutter/src/view/home/comments/comments_view.dart';
 import 'package:tiktok_app_clone_flutter/src/view/home/map/map_view.dart';
 
+//앱으로 이동 코드
+import 'package:url_launcher/url_launcher.dart';
+
 class ForYouVideoView extends StatefulWidget {
   const ForYouVideoView({super.key});
 
@@ -81,12 +84,7 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 IconButton(
-                                  onPressed: () { Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => MapView()),
-                                        );
-                                  },
+                                  onPressed: _launchNaverMap,
                                   icon: const Icon(
                                     Icons.map_outlined,
                                     size: 37,
@@ -313,5 +311,22 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
         );
       }),
     );
+  }
+
+  void _launchNaverMap() async {
+    const packageName = "com.android.chrome";
+    final chromeUrl = Uri.parse('googlechrome://');
+    final playStoreUrl =
+        Uri.parse('https://play.google.com/store/apps/details?id=$packageName');
+
+    try {
+      bool launched = await launchUrl(chromeUrl);
+
+      if (!launched) {
+        await launchUrl(playStoreUrl);
+      }
+    } catch (e) {
+      await launchUrl(playStoreUrl);
+    }
   }
 }
