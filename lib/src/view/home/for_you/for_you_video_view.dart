@@ -330,14 +330,15 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
     );
   }
 
+  //여기 조금만 수정하자
   void _launchNaverMap() async {
-    const packageName = "com.android.chrome";
-    final chromeUrl = Uri.parse('googlechrome://');
+    const packageName = "com.nhn.android.nmap"; // 네이버 지도 앱의 패키지 이름
+    final naverMapUrl = Uri.parse('nmap://'); // 네이버 지도 앱의 URI 스킴
     final playStoreUrl =
         Uri.parse('https://play.google.com/store/apps/details?id=$packageName');
 
     try {
-      bool launched = await launchUrl(chromeUrl);
+      bool launched = await launchUrl(naverMapUrl);
 
       if (!launched) {
         await launchUrl(playStoreUrl);
