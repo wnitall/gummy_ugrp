@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -21,6 +22,7 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   ProfileController profileController = Get.put(ProfileController());
   bool isFollowingUser = false;
+  List<String> thumbnails = [];
 
   @override
   void initState() {
@@ -29,10 +31,12 @@ class _ProfileViewState extends State<ProfileView> {
     profileController.updateCurrentUserID(widget.visitUserID.toString());
 
     getIsFollowingValue();
+    loadThumbnails();
   }
 
   Future<void> refreshData() async {
     await getIsFollowingValue();
+    await loadThumbnails();
   }
 
   getIsFollowingValue() {
@@ -52,6 +56,21 @@ class _ProfileViewState extends State<ProfileView> {
           isFollowingUser = false;
         });
       }
+    });
+  }
+
+  Future<void> loadThumbnails() async {
+    final ListResult result =
+        await FirebaseStorage.instance.ref('All Thumbnails').listAll();
+    final List<Reference> allFiles = result.items;
+
+    List<String> files = await Future.wait(allFiles.map((file) async {
+      final String url = await file.getDownloadURL();
+      return url;
+    }).toList());
+
+    setState(() {
+      thumbnails = files;
     });
   }
 
@@ -233,8 +252,80 @@ class _ProfileViewState extends State<ProfileView> {
                       ),
                     ],
                   ),
+                  const SizedBox(
+                    height: 15,
+                    width: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          if (profileController.userMap["userFacebook"] == "") {
+                            Get.snackbar("Facebook Profile",
+                                "This user has not connected his/her profile to facebook yet.");
+                          } else {
+                            launchUserSocialProfile(
+                                profileController.userMap["userFacebook"]);
+                          }
+                        },
+                        child: Image.asset(
+                          "assets/icons/facebook.png",
+                          width: 18,
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      GestureDetector(
+                        onTap: () {
+                          if (profileController.userMap["userInstagram"] ==
+                              "") {
+                            Get.snackbar("Instagram Profile",
+                                "This user has not connected his/her profile to instagram yet.");
+                          } else {
+                            launchUserSocialProfile(
+                                profileController.userMap["userInstagram"]);
+                          }
+                        },
+                        child: Image.asset(
+                          "assets/icons/instagram.png",
+                          width: 18,
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      GestureDetector(
+                        onTap: () {
+                          if (profileController.userMap["userTwitter"] == "") {
+                            Get.snackbar("Twitter Profile",
+                                "This user has not connected his/her profile to twitter yet.");
+                          } else {
+                            launchUserSocialProfile(
+                                profileController.userMap["userTwitter"]);
+                          }
+                        },
+                        child: Image.asset(
+                          "assets/icons/twitter.png",
+                          width: 18,
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      GestureDetector(
+                        onTap: () {
+                          if (profileController.userMap["userYoutube"] == "") {
+                            Get.snackbar("Twitter Youtube",
+                                "This user has not connected his/her profile to youtube yet.");
+                          } else {
+                            launchUserSocialProfile(
+                                profileController.userMap["userYoutube"]);
+                          }
+                        },
+                        child: Image.asset(
+                          "assets/icons/youtube.png",
+                          width: 18,
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 15),
-                  //*follow-unfollow-signout
                   ElevatedButton(
                       onPressed: () {
                         if (widget.visitUserID.toString() == currentUserID) {
@@ -293,77 +384,19 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                       )),
                   const SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          if (profileController.userMap["userFacebook"] == "") {
-                            Get.snackbar("Facebook Profile",
-                                "This user has not connected his/her profile to facebook yet.");
-                          } else {
-                            launchUserSocialProfile(
-                                profileController.userMap["userFacebook"]);
-                          }
-                        },
-                        /*
-                        child: Image.asset(
-                          "assets/icons/facebook.png",
-                          width: 18,
-                        ),*/
-                      ),
-                      const SizedBox(width: 15),
-                      GestureDetector(
-                        onTap: () {
-                          if (profileController.userMap["userInstagram"] ==
-                              "") {
-                            Get.snackbar("Instagram Profile",
-                                "This user has not connected his/her profile to instagram yet.");
-                          } else {
-                            launchUserSocialProfile(
-                                profileController.userMap["userInstagram"]);
-                          }
-                        },
-                        /*
-                        child: Image.asset(
-                          "assets/icons/instagram.png",
-                          width: 18,
-                        )
-                         */
-                      ),
-                      const SizedBox(width: 15),
-                      GestureDetector(
-                        onTap: () {
-                          if (profileController.userMap["userTwitter"] == "") {
-                            Get.snackbar("Twitter Profile",
-                                "This user has not connected his/her profile to twitter yet.");
-                          } else {
-                            launchUserSocialProfile(
-                                profileController.userMap["userTwitter"]);
-                          }
-                        },
-                        child: Image.asset(
-                          "assets/icons/twitter.png",
-                          width: 18,
-                        ),
-                      ),
-                      const SizedBox(width: 15),
-                      GestureDetector(
-                        onTap: () {
-                          if (profileController.userMap["userYoutube"] == "") {
-                            Get.snackbar("Twitter Youtube",
-                                "This user has not connected his/her profile to youtube yet.");
-                          } else {
-                            launchUserSocialProfile(
-                                profileController.userMap["userYoutube"]);
-                          }
-                        },
-                        child: Image.asset(
-                          "assets/icons/youtube.png",
-                          width: 18,
-                        ),
-                      ),
-                    ],
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
+                    ),
+                    itemCount: thumbnails.length,
+                    itemBuilder: (context, index) {
+                      return Image.network(thumbnails[index],
+                          fit: BoxFit.cover);
+                    },
                   ),
                 ],
               ),
