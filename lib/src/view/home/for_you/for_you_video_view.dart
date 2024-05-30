@@ -15,7 +15,7 @@ import 'package:tiktok_app_clone_flutter/src/view/home/comments/comments_bottom_
 import 'package:tiktok_app_clone_flutter/src/view/home/comments/comments_view.dart';
 import 'package:tiktok_app_clone_flutter/src/view/home/map/map_view.dart';
 import 'package:tiktok_app_clone_flutter/src/view/home/menu/menu_view.dart'; // 메뉴 뷰 임포트 추가
-
+import 'package:tiktok_app_clone_flutter/src/controller/ToNaverMap_controller.dart';
 //앱으로 이동 코드
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,6 +32,10 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
   CommentsController commentsController = Get.put(CommentsController());
   ReviewsController reviewsController = Get.put(ReviewsController());
   ProfileController profileController = Get.put(ProfileController());
+  final ToNaverController _ToNaverController = ToNaverController();
+  void _launchNaverMap() {
+    _ToNaverController.launchNaverMap();
+  }
 
   @override
   void initState() {
@@ -328,22 +332,5 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
         );
       }),
     );
-  }
-
-  void _launchNaverMap() async {
-    const packageName = "com.android.chrome";
-    final chromeUrl = Uri.parse('googlechrome://');
-    final playStoreUrl =
-        Uri.parse('https://play.google.com/store/apps/details?id=$packageName');
-
-    try {
-      bool launched = await launchUrl(chromeUrl);
-
-      if (!launched) {
-        await launchUrl(playStoreUrl);
-      }
-    } catch (e) {
-      await launchUrl(playStoreUrl);
-    }
   }
 }
