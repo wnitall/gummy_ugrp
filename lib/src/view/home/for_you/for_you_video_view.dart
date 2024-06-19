@@ -302,8 +302,7 @@ class _ForYouVideoViewState extends State<ForYouVideoView> {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        shareVideo_temp(
-                                            eachVideoInfo.videoUrl!);
+                                        shareVideo(eachVideoInfo.videoUrl!);
                                       },
                                       icon: const Icon(
                                         Icons.send_rounded,
